@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Fleet.Orchestrator": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7189"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "containerRunArguments": "--init",
+      "httpPort": 31415,
+      "useSSL": false
+    }
+  }
+}
