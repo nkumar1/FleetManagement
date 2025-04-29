@@ -1,0 +1,46 @@
+# Create the topic
+======================
+docker exec -it kafka_local /usr/bin/kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic orders
+
+
+# List all the topic
+======================
+docker exec -it kafka_local /usr/bin/kafka-topics --list --bootstrap-server localhost:9092
+
+# Create Producer
+======================
+docker exec -it kafka_local /usr/bin/kafka-console-producer --bootstrap-server localhost:9092 --topic orders
+
+
+# Create Consumer
+======================
+docker exec -it kafka_local /usr/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic orders --from-beginning
+
+
+#Run Azurite locally
+=============================
+docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite
+
+Note:
+=====================
+Durable Functions store orchestration state (checkpoints, instance history) into Azure Blob Storage. Without it, Durable Functions cannot run at all.
+
+When you run locally:
+1. It tries to connect to a Storage Emulator (Azurite) running on localhost:10000 for blobs.
+2. If Azurite is not running, or if no real Azure Storage account is configured, you get this error.
+
+
+Create topic for fleet management
+======================================
+1. fleet-requests-topic
+2. fleet-processed-topic
+
+docker exec -it kafka_local /usr/bin/kafka-topics --create --topic fleet-requests-topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+docker exec -it kafka_local /usr/bin/kafka-topics --create --topic fleet-processed-topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+
+
+Using docker compose Up & Down the kafka instance
+==================================================
+docker-compose down
+
+docker-compose up -d
